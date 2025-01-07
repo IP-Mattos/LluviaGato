@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lluvia de Gatitos</title>
+    <style>
+      /* Estilo General */
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+        overflow: hidden;
+        color: #333;
+      }
+
+      .card__title {
+        text-align: center;
+        margin-top: 50px;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+        color: #444;
+        margin-bottom: 10px;
+      }
+
+      p {
+        font-size: 1.2rem;
+        color: #555;
+        margin: 0;
+      }
+
+      .rain-container {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      .raindrop {
+        position: absolute;
+        width: 40px;
+        height: auto;
+        opacity: 0.8;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+        animation: fall infinite linear;
+      }
+
+      @keyframes fall {
+        0% {
+          transform: translateY(110vh);
+          opacity: 0;
+        }
+        20% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(-110vh);
+          opacity: 0;
+        }
+      }
+
+      /* Estilos Responsivos */
+      @media (max-width: 768px) {
+        h1 {
+          font-size: 2rem;
+        }
+        p {
+          font-size: 1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card__title">
+      <h1>Lluvia de Gatitos</h1>
+      <p>Un toque minimalista para alegrar tu día</p>
+    </div>
+    <div class="rain-container"></div>
+
+    <script>
+      const rainContainer = document.querySelector('.rain-container')
+      const imgSrc = './banana_cat_png_by_tergelbarymagnai_dgeiqri-375w-2x-transformed.png' // Reemplaza con el path correcto de tu imagen
+
+      function createRaindrop() {
+        const raindrop = document.createElement('img')
+        raindrop.src = imgSrc
+        raindrop.classList.add('raindrop')
+
+        // Posición aleatoria en el eje X
+        raindrop.style.left = `${Math.random() * 100}vw`
+
+        // Tamaño aleatorio
+        const size = Math.random() * 20 + 30 // Tamaño entre 30px y 50px
+        raindrop.style.width = `${size}px`
+
+        // Duración aleatoria de la animación
+        const duration = Math.random() * 4 + 2 // Duración entre 2s y 6s
+        raindrop.style.animationDuration = `${duration}s`
+
+        rainContainer.appendChild(raindrop)
+
+        // Eliminar la imagen después de que termina la animación
+        raindrop.addEventListener('animationend', () => {
+          raindrop.remove()
+        })
+      }
+
+      function generateRain() {
+        setInterval(createRaindrop, 150) // Crear una imagen cada 150ms
+      }
+
+      generateRain()
+    </script>
+  </body>
+</html>
